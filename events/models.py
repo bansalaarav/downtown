@@ -25,6 +25,11 @@ class Event(BaseModel):
     reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True) # to show on on-ground team's dashboard
     reviewed_at = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        permissions = [
+            ("review_event", "Can review events by changing the status field")
+        ]
+
 
 class Slot(BaseModel):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

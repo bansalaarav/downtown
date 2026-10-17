@@ -1,0 +1,2 @@
+ORG_GROUP_NAME = "org"
+ONGROUND_GROUP_NAME = "onground"
