@@ -1,11 +1,13 @@
 from django.db import models
 from common.models import BaseModel
 from django.conf import settings
+from decimal import Decimal
+from common.constants import TRANS_TYPE_ADD, TRANS_TYPE_PURCHASE
 
 
 class Wallet(BaseModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0))
 
     class Meta:
         constraints = [
@@ -18,8 +20,8 @@ class Wallet(BaseModel):
 
 class Transaction(BaseModel):
     TRANS_TYPE_CHOICES = [
-        ("A", "Add"),
-        ("P", "Purchase")
+        (TRANS_TYPE_ADD, "Add"),
+        (TRANS_TYPE_PURCHASE, "Purchase")
     ]
 
     wallet = models.ForeignKey(Wallet, on_delete=models.PROTECT)

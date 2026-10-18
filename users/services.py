@@ -21,6 +21,8 @@ def user_create(*, username: str, email: str, password: str) -> User: # * is to 
 @transaction.atomic
 def onground_member_create(*, user:User) -> OngroundMember:
     onground_member = OngroundMember(user=user)
+    onground_member.full_clean()
+    onground_member.save()
 
     Group.objects.get(name=ONGROUND_GROUP_NAME).user_set.add(user)
 
