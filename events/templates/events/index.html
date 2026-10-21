@@ -1,0 +1,32 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+    {% if events %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            {% for event in events %}
+                <div class="col">
+                    {# TODO: point href at the event detail page #}
+                    <a href="#" class="event-card type-{{ event.event_type|lower }}">
+                        <div class="event-tile">
+                            <span class="event-type">{{ event.get_event_type_display }}</span>
+                        </div>
+                        <div class="event-body">
+                            <h2 class="event-title">{{ event.title }}</h2>
+                            <p class="event-meta">{{ event.organisation.name }}</p>
+                            <p class="event-meta">{{ event.location }}</p>
+                            {% if event.min_price is not None %}
+                                <p class="event-price">
+                                    {% if event.min_price == 0 %}Free{% else %}From ₹{{ event.min_price }}{% endif %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>No events are live right now. Check back soon.</p>
+        </div>
+    {% endif %}
+{% endblock %}

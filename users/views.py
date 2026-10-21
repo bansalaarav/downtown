@@ -1,3 +1,3 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-# Create your views here.
+# Since using built in LoginView and LogoutView no need for separate views here i guess (until phase 2)

@@ -15,6 +15,9 @@ from pathlib import Path
 
 AUTH_USER_MODEL = "users.User"
 
+LOGIN_REDIRECT_URL = "events:index"
+LOGOUT_REDIRECT_URL = "events:index"
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -113,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

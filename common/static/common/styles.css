@@ -1,0 +1,347 @@
+/* ==========================================================================
+   downtown: shared stylesheet
+   Sections: tokens, base, navbar, buttons and forms, event grid,
+   empty states, login, wallet, motion
+   ========================================================================== */
+
+/* Tokens ----------------------------------------------------------------- */
+:root {
+    --ink: #1e1b2e;
+    --muted: #6b6880;
+    --surface: #ffffff;
+    --page: #f6f5fa;
+    --line: #e4e2ee;
+    --accent: #5b3fd6;
+    --accent-hover: #4a30bf;
+    --accent-ring: rgba(91, 63, 214, 0.2);
+    --credit: #1f6b4a;
+    --radius: 14px;
+
+    /* One tile colour per event type, so the type is readable at a glance */
+    --tile-slot: #dff3ea;
+    --tile-slot-ink: #1f6b4a;
+    --tile-ticket: #e9e3ff;
+    --tile-ticket-ink: #4a32b0;
+    --tile-reservation: #fdeadb;
+    --tile-reservation-ink: #9a4a14;
+}
+
+/* Base ------------------------------------------------------------------- */
+body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Panels: the white bordered box used by cards, login and wallet sections */
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+}
+
+.alert-compact {
+    font-size: 0.875rem;
+}
+
+/* Navbar ----------------------------------------------------------------- */
+.site-nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+}
+
+.site-brand {
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.site-brand:hover,
+.site-brand:focus {
+    color: var(--accent);
+}
+
+.site-nav .nav-link {
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.site-nav .nav-link.active,
+.site-nav .nav-link:hover {
+    color: var(--ink);
+}
+
+.nav-user {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Buttons and forms ------------------------------------------------------ */
+.btn-accent {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 500;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+    background: var(--accent-hover);
+    color: #fff;
+}
+
+.btn-accent:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+/* Event grid ------------------------------------------------------------- */
+.event-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s ease;
+}
+
+.event-card:hover {
+    border-color: var(--accent);
+    color: inherit;
+}
+
+.event-card:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.event-tile {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.75rem 1rem;
+}
+
+.type-sbe .event-tile { background: var(--tile-slot); color: var(--tile-slot-ink); }
+.type-tbe .event-tile { background: var(--tile-ticket); color: var(--tile-ticket-ink); }
+.type-rbe .event-tile { background: var(--tile-reservation); color: var(--tile-reservation-ink); }
+
+.event-type {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.event-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.event-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+}
+
+.event-meta {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.15rem;
+}
+
+.event-price {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* Empty states ----------------------------------------------------------- */
+.empty-state {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+}
+
+.empty-state p {
+    margin: 0;
+}
+
+/* Login ------------------------------------------------------------------ */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.auth-brand {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.auth-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.auth-subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-title + form,
+.auth-title + .alert {
+    margin-top: 1.5rem;
+}
+
+.auth-card .btn-accent {
+    padding: 0.6rem;
+}
+
+.auth-footer {
+    margin: 1.5rem 0 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.auth-footer a {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* Wallet ----------------------------------------------------------------- */
+.wallet-balance {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.wallet-balance-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-bottom: 0.25rem;
+}
+
+.wallet-balance-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.wallet-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.wallet-note {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.quick-amounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.txn-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+}
+
+.txn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.txn-row:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.txn-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.txn-title {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.txn-time {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.txn-amount {
+    font-weight: 700;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.txn-credit {
+    color: var(--credit);
+}
+
+.txn-debit {
+    color: var(--ink);
+}
+
+.txn-empty {
+    color: var(--muted);
+    margin: 1rem 0 0;
+}
+
+/* Motion ----------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .event-card {
+        transition: none;
+    }
+}

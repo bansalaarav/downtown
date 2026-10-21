@@ -1,6 +1,7 @@
 from django.db import models
 from common.models import BaseModel
 from django.conf import settings
+from common.constants import EVENT_STATUS_A, EVENT_STATUS_P, EVENT_STATUS_R
 
 
 class Event(BaseModel):
@@ -11,9 +12,9 @@ class Event(BaseModel):
     ]
 
     STATUS_CHOICES = [
-        ("P", "Pending"),
-        ("A", "Approved"),
-        ("R", "Rejected")
+        (EVENT_STATUS_P, "Pending"),
+        (EVENT_STATUS_A, "Approved"),
+        (EVENT_STATUS_R, "Rejected")
     ]
 
     title = models.CharField(max_length=100)
@@ -21,7 +22,7 @@ class Event(BaseModel):
     organisation = models.ForeignKey("users.Organisation", on_delete=models.PROTECT)
     event_type = models.CharField(max_length=3, choices=EVENT_TYPE_CHOICES)
     location = models.TextField()
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="P")
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=EVENT_STATUS_P)
     reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True) # to show on on-ground team's dashboard
     reviewed_at = models.DateTimeField(null=True, blank=True)
 
