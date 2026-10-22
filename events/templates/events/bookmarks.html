@@ -1,0 +1,22 @@
+{% extends "common/base.html" %}
+
+{% block title %}Bookmarks{% endblock %}
+
+{% block content %}
+    <h1 class="page-heading">Bookmarks</h1>
+
+    {% if bookmarks %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            {% for bookmark in bookmarks %}
+                <div class="col">
+                    {% include "events/_event_card.html" with event=bookmark.event always_bookmarked=True %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>You haven’t bookmarked any events yet.<br>
+               Tap the bookmark icon on an event to save it here.</p>
+        </div>
+    {% endif %}
+{% endblock %}

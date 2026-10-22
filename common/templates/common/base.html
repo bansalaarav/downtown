@@ -33,7 +33,11 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="#">My bookings</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Bookmarks</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link{% if current == 'bookmarks' %} active{% endif %}"
+                               {% if current == 'bookmarks' %}aria-current="page"{% endif %}
+                               href="{% url 'events:bookmarks' %}">Bookmarks</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link{% if current == 'wallet' %} active{% endif %}"
                                {% if current == 'wallet' %}aria-current="page"{% endif %}
@@ -46,7 +50,7 @@
                     {% if user.is_authenticated %}
                         <span class="nav-user">{{ user.username }}</span>
                         {# Django 5+ requires logout to be a POST request #}
-                        <form method="post" action="{% url 'users:login' %}" class="m-0">
+                        <form method="post" action="{% url 'users:logout' %}" class="m-0">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-outline-dark">Log out</button>
                         </form>

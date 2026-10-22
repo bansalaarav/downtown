@@ -109,6 +109,7 @@ body {
 
 /* Event grid ------------------------------------------------------------- */
 .event-card {
+    position: relative; /* containing block for the stretched link and bookmark button */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -126,9 +127,19 @@ body {
     color: inherit;
 }
 
-.event-card:focus-visible {
+/* The whole card is clickable through the title's stretched link */
+.event-card:has(.stretched-link:focus-visible) {
     outline: 3px solid var(--accent);
     outline-offset: 2px;
+}
+
+.event-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.event-title a:focus-visible {
+    outline: none; /* the card shows the focus ring instead */
 }
 
 .event-tile {
@@ -172,6 +183,75 @@ body {
     padding-top: 0.75rem;
     margin-bottom: 0;
     font-weight: 500;
+}
+
+/* Bookmarks -------------------------------------------------------------- */
+.page-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+}
+
+/* Sits above the stretched link so it stays clickable */
+.bookmark-form {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    margin: 0;
+}
+
+.bookmark-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bookmark-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-bookmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.btn-bookmark:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--surface);
+}
+
+.bookmark-btn:focus-visible,
+.btn-bookmark:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Bookmarked state: accent colour and a filled icon */
+.bookmark-btn.is-active,
+.btn-bookmark.is-active {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.is-active .bookmark-icon path {
+    fill: currentColor;
 }
 
 /* Empty states ----------------------------------------------------------- */
@@ -339,9 +419,119 @@ body {
     margin: 1rem 0 0;
 }
 
+/* Event detail ----------------------------------------------------------- */
+.event-detail-type {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+}
+
+.type-sbe .event-detail-type { background: var(--tile-slot); color: var(--tile-slot-ink); }
+.type-tbe .event-detail-type { background: var(--tile-ticket); color: var(--tile-ticket-ink); }
+.type-rbe .event-detail-type { background: var(--tile-reservation); color: var(--tile-reservation-ink); }
+
+.event-detail-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+}
+
+.event-detail-description {
+    margin: 1rem 0 0;
+    line-height: 1.6;
+}
+
+.slot-day {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin: 1.5rem 0 0.5rem;
+}
+
+.slot-day:first-of-type {
+    margin-top: 1rem;
+}
+
+.slot-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.slot-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+}
+
+.slot-info,
+.slot-side {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.slot-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    min-width: 0;
+}
+
+.slot-time {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.slot-label,
+.slot-left {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.slot-price {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.slot-status {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+/* Full or already started: greyed out and not interactive */
+.slot-unavailable {
+    background: var(--page);
+    color: var(--muted);
+}
+
+.slot-unavailable .slot-time,
+.slot-unavailable .slot-price {
+    color: var(--muted);
+}
+
+.slot-unavailable .slot-price {
+    text-decoration: line-through;
+}
+
 /* Motion ----------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-    .event-card {
+    .event-card,
+    .bookmark-btn {
         transition: none;
     }
 }

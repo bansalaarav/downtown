@@ -2,6 +2,7 @@ from django.db import models
 from common.models import BaseModel
 from django.conf import settings
 from common.constants import EVENT_STATUS_A, EVENT_STATUS_P, EVENT_STATUS_R
+from django.utils import timezone
 
 
 class Event(BaseModel):
@@ -40,6 +41,22 @@ class Slot(BaseModel):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     capacity = models.PositiveIntegerField()
     booked_count = models.PositiveIntegerField(default=0)
+
+    @property
+    def is_full(self) -> bool:
+        return self.booked_count >= self.capacity
+
+    @property
+    def spots_left(self) -> int:
+        return self.capacity - self.booked_count
+
+    @property
+    def has_started(self) -> bool:
+        return self.starts_at <= timezone.now()
+
+    @property
+    def is_bookable(self) -> bool:
+        return (not self.is_full and not self.has_started)
 
     class Meta:
         constraints = [

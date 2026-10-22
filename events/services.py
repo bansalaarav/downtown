@@ -1,4 +1,4 @@
-from .models import Event, Slot
+from .models import Event, Bookmark
 from users.models import User, Organisation
 from common.constants import EVENT_STATUS_A, EVENT_STATUS_P, EVENT_STATUS_R
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -39,12 +39,15 @@ def event_review(*, event: Event, reviewer: User, approve: bool) -> Event:
         raise PermissionDenied("You don't have permission to review events.")
 
 
+def bookmark_create(*, user: User, event: Event) -> Bookmark:
+    bookmark = Bookmark(user=user, event=event)
+    bookmark.full_clean()
+    bookmark.save()
+
+    return bookmark
+
 
 # TODO: when i start phase 2
 
 def slot_create():
-    pass
-
-
-def bookmark_toggle():
     pass

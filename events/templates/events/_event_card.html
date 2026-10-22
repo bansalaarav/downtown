@@ -1,0 +1,40 @@
+{# One event card. Expects `event`; reads `bookmarked_event_ids` from the page context. #}
+{# Pass always_bookmarked=True on pages where every event is already bookmarked.        #}
+<article class="event-card type-{{ event.event_type|lower }}">
+    <div class="event-tile">
+        <span class="event-type">{{ event.get_event_type_display }}</span>
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if always_bookmarked or event.pk in bookmarked_event_ids %}
+            <form method="post" action="{% url 'events:bookmark_delete' event.pk %}" class="bookmark-form">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="bookmark-btn is-active" aria-pressed="true" aria-label="Remove bookmark">
+                    {% include "events/_bookmark_icon.html" %}
+                </button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'events:bookmark_create' event.pk %}" class="bookmark-form">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="bookmark-btn" aria-pressed="false" aria-label="Bookmark this event">
+                    {% include "events/_bookmark_icon.html" %}
+                </button>
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <div class="event-body">
+        <h2 class="event-title">
+            <a href="{% url 'events:detail' event.pk %}" class="stretched-link">{{ event.title }}</a>
+        </h2>
+        <p class="event-meta">{{ event.organisation.name }}</p>
+        <p class="event-meta">{{ event.location }}</p>
+        {% if event.min_price is not None %}
+            <p class="event-price">
+                {% if event.min_price == 0 %}Free{% else %}From ₹{{ event.min_price|floatformat:"-2" }}{% endif %}
+            </p>
+        {% endif %}
+    </div>
+</article>
